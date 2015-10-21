@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- BUSINESSLOGIC -->
+	<bean id="stocksService" class="com.acme.services.businesslogic.StocksServiceImpl">
+		<property name="stocksPersistenceService" ref="stocksPersistenceService" />
+	</bean>
+
+	<bean id="tradesService" class="com.acme.services.businesslogic.TradesServiceImpl">
+		<property name="stocksPersistenceService" ref="stocksPersistenceService" />
+		<property name="tradesPersistenceService" ref="tradesPersistenceService" />
+	</bean>
+
+	<bean id="stockMarketService" class="com.acme.services.businesslogic.StockMarketServiceImpl">
+		<property name="stocksPersistenceService" ref="stocksPersistenceService" />
+		<property name="tradesPersistenceService" ref="tradesPersistenceService" />
+	</bean>
+
+	<!-- PERSISTENCE -->
+	<bean id="stocksPersistenceService" class="com.acme.services.persistence.StocksPersistenceServiceImpl">
+		<property name="stocksDatastore" ref="stocksDatastore" />
+	</bean>
+
+	<bean id="tradesPersistenceService" class="com.acme.services.persistence.TradesPersistenceServiceImpl">
+		<property name="tradesDatastore" ref="tradesDatastore" />
+	</bean>
+	
+	<!-- STORAGE -->
+	<bean id="stocksDatastore" class="com.acme.storage.StocksDatastore" />
+	
+	<bean id="tradesDatastore" class="com.acme.storage.TradesDatastore" />
+</beans>
